@@ -35,20 +35,29 @@ class _AppState extends State<App> {
             );
           },
           routes: [
-            GoRoute(
-              path: 'details',
-              builder: (context, state) {
-                return Scaffold(
+            ShellRoute(
+              restorationScopeId: 'shell',
+              pageBuilder: (context, state, child) => MaterialPage(
+                restorationId: 'shell_page',
+                child: Scaffold(
                   appBar: AppBar(
-                    title: Text('Details'),
+                    title: Text('Shell Route'),
                   ),
-                  body: Center(
-                    child: TextField(
-                      restorationId: 'details_text_field',
-                    ),
-                  ),
-                );
-              },
+                  body: child,
+                ),
+              ),
+              routes: [
+                GoRoute(
+                  path: 'details',
+                  builder: (context, state) {
+                    return Center(
+                      child: TextField(
+                        restorationId: 'details_text_field',
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
