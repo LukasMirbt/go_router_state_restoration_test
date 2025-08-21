@@ -20,11 +20,31 @@ class _AppState extends State<App> {
           path: '/',
           builder: (context, state) {
             return Scaffold(
+              appBar: AppBar(
+                title: Text('Home'),
+              ),
               body: Center(
-                child: Text('Home'),
+                child: FilledButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/details');
+                  },
+                  child: Text('Go to Details'),
+                ),
               ),
             );
           },
+          routes: [
+            GoRoute(
+              path: 'details',
+              builder: (context, state) {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text('Details'),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ],
     );
@@ -32,6 +52,9 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(routerConfig: _router);
+    return MaterialApp.router(
+      restorationScopeId: 'app',
+      routerConfig: _router,
+    );
   }
 }
