@@ -15,6 +15,7 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _router = GoRouter(
+      restorationScopeId: 'router',
       routes: [
         GoRoute(
           path: '/',
@@ -36,10 +37,18 @@ class _AppState extends State<App> {
           routes: [
             GoRoute(
               path: 'details',
-              builder: (context, state) {
-                return Scaffold(
-                  appBar: AppBar(
-                    title: Text('Details'),
+              pageBuilder: (context, state) {
+                return MaterialPage(
+                  restorationId: 'details',
+                  child: Scaffold(
+                    appBar: AppBar(
+                      title: Text('Details'),
+                    ),
+                    body: Center(
+                      child: TextField(
+                        restorationId: 'details_text_field',
+                      ),
+                    ),
                   ),
                 );
               },
