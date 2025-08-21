@@ -17,43 +17,65 @@ class _AppState extends State<App> {
     _router = GoRouter(
       restorationScopeId: 'router',
       routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Home'),
-              ),
-              body: Center(
-                child: FilledButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/details');
-                  },
-                  child: Text('Go to Details'),
+        StatefulShellRoute.indexedStack(
+          restorationScopeId: 'stateful_shell',
+          pageBuilder: (context, state, navigationShell) {
+            return MaterialPage(
+              restorationId: 'stateful_shell_page',
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text('Branch ${navigationShell.currentIndex}'),
                 ),
+                body: navigationShell,
               ),
             );
           },
-          routes: [
-            ShellRoute(
-              restorationScopeId: 'shell',
-              pageBuilder: (context, state, child) => MaterialPage(
-                restorationId: 'shell_page',
-                child: Scaffold(
-                  appBar: AppBar(
-                    title: Text('Shell Route'),
-                  ),
-                  body: child,
-                ),
-              ),
+          branches: [
+            StatefulShellBranch(
+              restorationScopeId: 'first_branch',
               routes: [
                 GoRoute(
-                  path: 'details',
+                  path: '/',
                   builder: (context, state) {
                     return Center(
-                      child: TextField(
-                        restorationId: 'details_text_field',
+                      child: Column(
+                        children: [
+                          FilledButton(
+                            onPressed: () {
+                              GoRouter.of(context).go('/second');
+                            },
+                            child: Text('Go to Second'),
+                          ),
+                          TextField(
+                            restorationId: 'first_branch_text_field',
+                          ),
+                        ],
                       ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              restorationScopeId: 'second_branch',
+              routes: [
+                GoRoute(
+                  path: '/second',
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        FilledButton(
+                          onPressed: () {
+                            GoRouter.of(context).go('/');
+                          },
+                          child: Text('Go to First'),
+                        ),
+                        Center(
+                          child: TextField(
+                            restorationId: 'second_branch_text_field',
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),
