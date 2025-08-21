@@ -19,41 +19,23 @@ class _AppState extends State<App> {
       routes: [
         GoRoute(
           path: '/',
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Home'),
-              ),
-              body: Center(
-                child: FilledButton(
-                  onPressed: () {
-                    GoRouter.of(context).go('/details');
-                  },
-                  child: Text('Go to Details'),
+          pageBuilder: (context, state) {
+            return MaterialPage(
+              restorationId: 'home',
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text('Home'),
+                ),
+                body: Center(
+                  child: Center(
+                    child: TextField(
+                      restorationId: 'details_text_field',
+                    ),
+                  ),
                 ),
               ),
             );
           },
-          routes: [
-            GoRoute(
-              path: 'details',
-              pageBuilder: (context, state) {
-                return MaterialPage(
-                  restorationId: 'details',
-                  child: Scaffold(
-                    appBar: AppBar(
-                      title: Text('Details'),
-                    ),
-                    body: Center(
-                      child: TextField(
-                        restorationId: 'details_text_field',
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
         ),
       ],
     );
