@@ -25,12 +25,32 @@ class _AppState extends State<App> {
                 title: Text('Home'),
               ),
               body: Center(
-                child: TextField(
-                  restorationId: 'details_text_field',
+                child: FilledButton(
+                  onPressed: () {
+                    GoRouter.of(context).go('/details');
+                  },
+                  child: Text('Go to Details'),
                 ),
               ),
             );
           },
+          routes: [
+            GoRoute(
+              path: 'details',
+              builder: (context, state) {
+                return Scaffold(
+                  appBar: AppBar(
+                    title: Text('Details'),
+                  ),
+                  body: Center(
+                    child: TextField(
+                      restorationId: 'details_text_field',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ],
     );
