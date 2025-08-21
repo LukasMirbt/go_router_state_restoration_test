@@ -27,10 +27,8 @@ class _AppState extends State<App> {
                   title: Text('Home'),
                 ),
                 body: Center(
-                  child: Center(
-                    child: TextField(
-                      restorationId: 'details_text_field',
-                    ),
+                  child: TextField(
+                    restorationId: 'details_text_field',
                   ),
                 ),
               ),
